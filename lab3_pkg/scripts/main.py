@@ -41,7 +41,7 @@ class Exectutor(object):
             return
         print("EXECUTE")
         for (t, cmd, state) in plan:
-            cmd.linear_velocity = cmd.linear_velocity*1
+            cmd.linear_velocity = cmd.linear_velocity*1.2
             cmd.steering_rate = cmd.steering_rate
             self.cmd(cmd)
             # print("@@@@@@@@@@", cmd)
@@ -174,49 +174,49 @@ if __name__ == '__main__':
     # plan = p.plan_to_pose(ex.state, goalState, 0.01, 5)
 
     ############ fix y #####################
-    rem = args.y
-    last_y = 0
-    max_y_perunit = 0.2
-    while rem > max_y_perunit:
-        print("in while!!!!!!!!!!!!!!!!")
-        goalState = BicycleStateMsg(0, max_y_perunit, 0, 0)
-        # plan += p.plan_to_pose(ex.state, goalState, 0.01, 5)
-        plan1 = p.plan_to_pose(ex.state, goalState, 0.1, 5)
-        for i in range(len(plan1)):
-            plan1[i][2].y += last_y
-        last_y = plan1[len(plan1)-1][2].y
-        plan += plan1
-        print("length of each plan:", len(plan))
-        rem -= max_y_perunit
-    goalState = BicycleStateMsg(args.x, rem, args.theta, args.phi)
+    # rem = args.y
+    # last_y = 0
+    # max_y_perunit = .2
+    # while rem > max_y_perunit:
+    #     print("in while!!!!!!!!!!!!!!!!")
+    #     goalState = BicycleStateMsg(0, max_y_perunit, 0, 0)
+    #     # plan += p.plan_to_pose(ex.state, goalState, 0.01, 5)
+    #     plan1 = p.plan_to_pose(ex.state, goalState, 0.1, 7)
+    #     for i in range(len(plan1)):
+    #         plan1[i][2].y += last_y
+    #     last_y = plan1[len(plan1)-1][2].y
+    #     plan += plan1
+    #     print("length of each plan:", len(plan))
+    #     rem -= max_y_perunit
+    # goalState = BicycleStateMsg(args.x, rem, args.theta, args.phi)
 
-    plan1 = p.plan_to_pose(ex.state, goalState, 0.1, 5)
-    for i in range(len(plan1)):
-        plan1[i][2].y += last_y
-    plan += plan1
+    # plan1 = p.plan_to_pose(ex.state, goalState, 0.1, 7)
+    # for i in range(len(plan1)):
+    #     plan1[i][2].y += last_y
+    # plan += plan1
 
 
     ############ fix theta #####################
-    # rem_theta = args.theta
-    # last_theta = 0
-    # # print('math', np.pi/6)
-    # while rem_theta > np.pi/4:
-    #     print("in while!!!!!!!!!!!!!!!!", rem_theta)
-    #     goalState = BicycleStateMsg(0, 0, np.pi/4, 0)
-    #     plan1 = p.plan_to_pose(ex.state, goalState, 0.01, 5)
-    #     for i in range(len(plan1)):
-    #         plan1[i][2].theta += last_theta
-    #     last_theta = plan1[len(plan1)-1][2].theta
-    #     plan += plan1
-    #     # print("length of each plan:", len(plan))
-    #     rem_theta -= np.pi/4
+    rem_theta = args.theta
+    last_theta = 0
+    # print('math', np.pi/6)
+    while rem_theta > np.pi/6:
+        print("in while!!!!!!!!!!!!!!!!", rem_theta)
+        goalState = BicycleStateMsg(0, 0, np.pi/6, 0)
+        plan1 = p.plan_to_pose(ex.state, goalState, 0.1, 5)
+        for i in range(len(plan1)):
+            plan1[i][2].theta += last_theta
+        last_theta = plan1[len(plan1)-1][2].theta
+        plan += plan1
+        # print("length of each plan:", len(plan))
+        rem_theta -= np.pi/6
 
-    # goalState = BicycleStateMsg(args.x, args.y, rem_theta, args.phi)
+    goalState = BicycleStateMsg(args.x, args.y, rem_theta, args.phi)
 
-    # plan1 = p.plan_to_pose(ex.state, goalState, 0.01, 5)
-    # for i in range(len(plan1)):
-    #     plan1[i][2].theta += last_theta
-    # plan += plan1
+    plan1 = p.plan_to_pose(ex.state, goalState, 0.1, 5)
+    for i in range(len(plan1)):
+        plan1[i][2].theta += last_theta
+    plan += plan1
 
 
     # max_y_perunit = 0.2
